@@ -39,5 +39,10 @@ namespace SillyCode
 
             return allSame;
         }
+
+        public bool HaveSameSum(IEnumerable<double> firstValues, IEnumerable<double> secondValues)
+        {
+            return firstValues.Sum() == secondValues.Sum();
+        }
     }
 }
