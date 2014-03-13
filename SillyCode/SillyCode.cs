@@ -46,7 +46,7 @@ namespace SillyCode
             return firstValues.Sum() == secondValues.Sum();
         }
 
-        public IEnumerable<int> CountFrequencies(IEnumerable<int> sourceCollection, IEnumerable<Predicate<int>> predicates)
+        public IEnumerable<int> CountFrequencies<T>(IEnumerable<T> sourceCollection, IEnumerable<Predicate<T>> predicates)
         {
             return predicates.Select(p => sourceCollection.Count(v => p(v))).ToList();
         }
