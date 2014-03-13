@@ -31,9 +31,11 @@ namespace SillyCode
             return predicates.Select(p => sourceCollection.Count(v => p(v))).ToList();
         }
 
-        public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> firstKeys, IEnumerable<TKey> secondKeys, IDataSource<TKey, TValue> remoteDataSource)  where TValue : class
+        public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> firstKeys, IEnumerable<TKey> secondKeys, IDataSource<TKey, TValue> remoteDataSource)
+            where TValue : class
         {
-            var valuePairs = firstKeys.SelectMany(firstKey => secondKeys.Select(secondKey => new { First = remoteDataSource.FetchValue(firstKey), Second = remoteDataSource.FetchValue(secondKey) }));
+            var valuePairs = firstKeys.SelectMany(firstKey 
+                => secondKeys.Select(secondKey => new { First = remoteDataSource.FetchValue(firstKey), Second = remoteDataSource.FetchValue(secondKey) }));
             return valuePairs.All(values => values.First == values.Second);
         }
     }
