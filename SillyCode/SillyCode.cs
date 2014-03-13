@@ -21,26 +21,6 @@ namespace SillyCode
             return collection.Count() == 0;
         }
 
-        public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> firstKeys, IEnumerable<TKey> secondKeys, IDataSource<TKey, TValue> remoteDataSource)  where TValue : class
-        {
-            bool allSame = true;
-            foreach (TKey firstKey in firstKeys)
-            {
-                foreach (TKey secondKey in secondKeys)
-                {
-                    var firstValue = remoteDataSource.FetchValue(firstKey);
-                    var secondValue = remoteDataSource.FetchValue(secondKey);
-
-                    if (Equals(firstValue, secondValue))
-                    {
-                        allSame = false;
-                    }
-                }
-            }
-
-            return allSame;
-        }
-
         public bool HaveSameSum(IEnumerable<double> firstValues, IEnumerable<double> secondValues)
         {
             return firstValues.Sum() == secondValues.Sum();
@@ -49,6 +29,13 @@ namespace SillyCode
         public IEnumerable<int> CountFrequencies<T>(IEnumerable<T> sourceCollection, IEnumerable<Predicate<T>> predicates)
         {
             return predicates.Select(p => sourceCollection.Count(v => p(v))).ToList();
+        }
+
+        public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> firstKeys, IEnumerable<TKey> secondKeys, IDataSource<TKey, TValue> remoteDataSource)  where TValue : class
+        {
+            return
+                firstKeys.SelectMany(firstKey => secondKeys.Select(secondKey => new { FirstValue = remoteDataSource.FetchValue(firstKey), SecondValue = remoteDataSource.FetchValue(secondKey) }))
+                    .All(values => values.FirstValue == values.SecondValue);
         }
     }
 }
