@@ -8,12 +8,7 @@ namespace SillyCode
     {
         public string GetOrCreateValue(IDictionary<string, string> map, string key, Func<string> createValue)
         {
-            if (!map.ContainsKey(key))
-            {
-                return map[key];
-            }
-
-            return map[key] = createValue();
+            return map.ContainsKey(key) ? map[key] : map[key] = createValue();
         }
 
         public bool IsEmpty<T>(IEnumerable<T> collection)
@@ -36,6 +31,7 @@ namespace SillyCode
         {
             var valuePairs = keys1.SelectMany(key1 
                 => keys2.Select(key2 => new { Value1 = remoteDataSource.FetchValue(key1), Value2 = remoteDataSource.FetchValue(key2) }));
+
             return valuePairs.All(values => values.Value1 == values.Value2);
         }
     }
