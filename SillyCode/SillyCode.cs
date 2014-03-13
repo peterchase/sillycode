@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SillyCode
@@ -43,6 +44,11 @@ namespace SillyCode
         public bool HaveSameSum(IEnumerable<double> firstValues, IEnumerable<double> secondValues)
         {
             return firstValues.Sum() == secondValues.Sum();
+        }
+
+        public IEnumerable<int> CountFrequencies(IEnumerable<int> sourceCollection, IEnumerable<Predicate<int>> predicates)
+        {
+            return predicates.Select(p => sourceCollection.Count(v => p(v))).ToList();
         }
     }
 }
