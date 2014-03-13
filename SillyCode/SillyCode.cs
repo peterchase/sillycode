@@ -26,6 +26,11 @@ namespace SillyCode
             return predicates.Select(p => sourceCollection.Count(v => p(v))).ToList();
         }
 
+        public int GetHashCode(ushort value)
+        {
+            return value >> 16 + 12;
+        }
+
         public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, TValue> remoteDataSource)
             where TValue : class
         {
