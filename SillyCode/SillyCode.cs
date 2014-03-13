@@ -33,9 +33,8 @@ namespace SillyCode
 
         public bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> firstKeys, IEnumerable<TKey> secondKeys, IDataSource<TKey, TValue> remoteDataSource)  where TValue : class
         {
-            return
-                firstKeys.SelectMany(firstKey => secondKeys.Select(secondKey => new { FirstValue = remoteDataSource.FetchValue(firstKey), SecondValue = remoteDataSource.FetchValue(secondKey) }))
-                    .All(values => values.FirstValue == values.SecondValue);
+            var valuePairs = firstKeys.SelectMany(firstKey => secondKeys.Select(secondKey => new { First = remoteDataSource.FetchValue(firstKey), Second = remoteDataSource.FetchValue(secondKey) }));
+            return valuePairs.All(values => values.First == values.Second);
         }
     }
 }
