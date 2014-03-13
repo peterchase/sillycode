@@ -31,13 +31,12 @@ namespace SillyCode
             return (value >> 16) + 12;
         }
 
-        public static bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, TValue> remoteDataSource)
-            where TValue : class
+        public static int SumAllProducts<TKey>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, int> remoteDataSource)
         {
             var valuePairs = keys1.SelectMany(key1 
                 => keys2.Select(key2 => new { Value1 = remoteDataSource.FetchValue(key1), Value2 = remoteDataSource.FetchValue(key2) }));
 
-            return valuePairs.All(values => values.Value1 == values.Value2);
+            return valuePairs.Sum(values => values.Value1 * values.Value2);
         }
     }
 }

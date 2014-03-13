@@ -64,31 +64,31 @@ namespace SillyCode
         }
 
         [Test]
-        public void ReferenceSameObjects_ShouldReturnTrue_WhenEmpty()
+        public void SumAllProducts_ShouldReturnZero_WhenEmpty()
         {
-            var dataSource = Substitute.For<IDataSource<int, object>>();
-            Assert.That(SillyCode.ReferenceSameObjects(new int[0], new int[0], dataSource), Is.True);
+            var dataSource = Substitute.For<IDataSource<int, int>>();
+            Assert.That(SillyCode.SumAllProducts(new int[0], new int[0], dataSource), Is.EqualTo(0));
         }
 
         [Test]
-        public void ReferenceSameObjects_ShouldReturnTrue_WhenSame()
+        public void SumAllProducts_ShouldReturnProduct_WhenSingle()
         {
-            var dataSource = Substitute.For<IDataSource<int, object>>();
-            var value = new object();
-            dataSource.FetchValue(1).Returns(value);
-            dataSource.FetchValue(2).Returns(value);
+            var dataSource = Substitute.For<IDataSource<int, int>>();
+            dataSource.FetchValue(1).Returns(2);
+            dataSource.FetchValue(2).Returns(2);
 
-            Assert.That(SillyCode.ReferenceSameObjects(new[] { 1 }, new[] { 2 }, dataSource), Is.True);
+            Assert.That(SillyCode.SumAllProducts(new[] { 1 }, new[] { 2 }, dataSource), Is.EqualTo(4));
         }
 
         [Test]
-        public void ReferenceSameObjects_ShouldReturnFalse_WhenDifferent()
+        public void SumAllProducts_ShouldReturnSumOfProducts_WhenMultiple()
         {
-            var dataSource = Substitute.For<IDataSource<int, object>>();
-            dataSource.FetchValue(1).Returns(new object());
-            dataSource.FetchValue(2).Returns(new object());
+            var dataSource = Substitute.For<IDataSource<int, int>>();
+            dataSource.FetchValue(1).Returns(1);
+            dataSource.FetchValue(2).Returns(2);
+            dataSource.FetchValue(3).Returns(5);
 
-            Assert.That(SillyCode.ReferenceSameObjects(new[] { 1 }, new[] { 2 }, dataSource), Is.False);
+            Assert.That(SillyCode.SumAllProducts(new[] { 1, 2 }, new[] { 2, 3 }, dataSource), Is.EqualTo(21));
         }
     }
 }
