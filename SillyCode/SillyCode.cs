@@ -28,7 +28,7 @@ namespace SillyCode
 
         public static int GetHashCode(ushort value)
         {
-            return value >> 16 + 12;
+            return (value >> 16) + 12;
         }
 
         public static bool ReferenceSameObjects<TKey, TValue>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, TValue> remoteDataSource)
