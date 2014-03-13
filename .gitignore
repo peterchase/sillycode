@@ -1,0 +1,4 @@
+SillyCode/obj/
+*.suo
+SillyCode/bin/
+SillyCode/packages/NUnit.2.6.3/
