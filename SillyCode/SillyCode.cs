@@ -6,14 +6,14 @@ namespace SillyCode
 {
     public class SillyCode
     {
-        public string GetOrCreateValue(IDictionary<string, string> map, string key, string defaultValue)
+        public string GetOrCreateValue(IDictionary<string, string> map, string key, Func<string> createValue)
         {
             if (!map.ContainsKey(key))
             {
                 return map[key];
             }
 
-            return map[key] = defaultValue;
+            return map[key] = createValue();
         }
 
         public bool IsEmpty<T>(IEnumerable<T> collection)
