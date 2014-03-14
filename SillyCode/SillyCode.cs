@@ -36,6 +36,11 @@ namespace SillyCode
             return key is TKey ? dataSource.FetchValue((TKey)key) : default(TValue);
         }
 
+        public static bool HasSpecialPrefix(string value)
+        {
+            return value.StartsWith("!Wibble!") ? true : false;
+        }
+
         public static int SumAllProducts<TKey>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, int> remoteDataSource)
         {
             var valuePairs = keys1.SelectMany(key1 
