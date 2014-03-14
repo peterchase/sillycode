@@ -64,6 +64,21 @@ namespace SillyCode
         }
 
         [Test]
+        public void GetValueSafely_ShouldReturnDefault_WhenKeyIsWrongType()
+        {
+            var dataSource = Substitute.For<IDataSource<string, int>>();
+            Assert.That(SillyCode.GetValueSafely(1, dataSource), Is.EqualTo(0));
+        }
+
+        [Test]
+        public void GetValueSafely_ShouldGetValueFromDataSource_WhenKeyIsCorrectType()
+        {
+            var dataSource = Substitute.For<IDataSource<string, int>>();
+            dataSource.FetchValue("foo").Returns(34);
+            Assert.That(SillyCode.GetValueSafely("foo", dataSource), Is.EqualTo(34));
+        }
+
+        [Test]
         public void SumAllProducts_ShouldReturnZero_WhenEmpty()
         {
             var dataSource = Substitute.For<IDataSource<int, int>>();

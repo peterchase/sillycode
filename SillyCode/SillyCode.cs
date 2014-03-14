@@ -31,6 +31,11 @@ namespace SillyCode
             return (value >> 16) + 12;
         }
 
+        public static TValue GetValueSafely<TKey, TValue>(object key, IDataSource<TKey, TValue> dataSource) where TKey : class
+        {
+            return key is TKey ? dataSource.FetchValue((TKey)key) : default(TValue);
+        }
+
         public static int SumAllProducts<TKey>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, int> remoteDataSource)
         {
             var valuePairs = keys1.SelectMany(key1 
