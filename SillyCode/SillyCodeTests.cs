@@ -91,6 +91,18 @@ namespace SillyCode
         }
 
         [Test]
+        public void Truncate_ShouldReturnUnchangedString_WhenLessThan25Chars()
+        {
+            Assert.That(SillyCode.Truncate("foo bar"), Is.EqualTo("foo bar"));
+        }
+
+        [Test]
+        public void Truncate_ShouldReturnFirst25CharsOfString_WhenMoreThan25Chars()
+        {
+            Assert.That(SillyCode.Truncate("123456789012345678901234567890"), Is.EqualTo("1234567890123456789012345"));
+        }
+
+        [Test]
         public void SumAllProducts_ShouldReturnZero_WhenEmpty()
         {
             var dataSource = Substitute.For<IDataSource<int, int>>();

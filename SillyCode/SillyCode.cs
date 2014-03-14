@@ -46,6 +46,12 @@ namespace SillyCode
             try { return uri.Scheme; } catch (NullReferenceException) { return "http"; }
         }
 
+        public static string Truncate(string value)
+        {
+            // return value.Remove(25)
+            return value.Substring(0, Math.Min(value.Length, 25));
+        }
+
         public static int SumAllProducts<TKey>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, int> remoteDataSource)
         {
             var valuePairs = keys1.SelectMany(key1 
