@@ -41,6 +41,11 @@ namespace SillyCode
             return value.StartsWith("!Wibble!") ? true : false;
         }
 
+        public static string GetSchemeOrDefault(Uri uri)
+        {
+            try { return uri.Scheme; } catch (NullReferenceException) { return "http"; }
+        }
+
         public static int SumAllProducts<TKey>(IEnumerable<TKey> keys1, IEnumerable<TKey> keys2, IDataSource<TKey, int> remoteDataSource)
         {
             var valuePairs = keys1.SelectMany(key1 

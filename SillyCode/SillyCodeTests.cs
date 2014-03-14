@@ -79,6 +79,18 @@ namespace SillyCode
         }
 
         [Test]
+        public void GetSchemeOrDefault_ShouldReturnHttp_WhenUriIsNull()
+        {
+            Assert.That(SillyCode.GetSchemeOrDefault(null), Is.EqualTo("http"));
+        }
+
+        [Test]
+        public void GetSchemeOrDefault_ShouldReturnScheme_WhenUriIsNotNull()
+        {
+            Assert.That(SillyCode.GetSchemeOrDefault(new Uri("https://www.grantadesign.com")), Is.EqualTo("https"));
+        }
+
+        [Test]
         public void SumAllProducts_ShouldReturnZero_WhenEmpty()
         {
             var dataSource = Substitute.For<IDataSource<int, int>>();
